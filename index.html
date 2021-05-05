@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      http-equiv="Cache-control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Simple callback</title>
+  </head>
+  <body>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <div id="root"></div>
+
+    <script type="text/javascript">
+      const rootEl = document.getElementById("root");
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const entries = Array.from(urlParams.entries());
+
+      if (entries.length === 0) {
+        const noEntriesText = document.createElement("p");
+        noEntriesText.innerText = "No URL parameters";
+        rootEl.append(noEntriesText);
+      }
+
+      for (const [key, value] of entries) {
+        const container = document.createElement("div");
+        const title = document.createElement("h2");
+        title.innerText = key;
+        container.append(title);
+        const text = document.createElement("textarea");
+        text.innerText = value;
+        text.onkeypress = (e) => {
+          return false;
+        };
+        text.onclick = () => {
+          text.select();
+          document.execCommand("copy");
+        };
+        container.append(text);
+        rootEl.append(container);
+      }
+    </script>
+  </body>
+</html>
